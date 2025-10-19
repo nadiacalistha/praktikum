@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Struk Pemesanan</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f7f7;
+      padding: 50px;
+    }
+    .struk-container {
+      max-width: 500px;
+      margin: auto;
+      background: white;
+      padding: 30px;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .struk-item {
+      margin-bottom: 15px;
+      border-bottom: 1px solid #eee;
+      padding-bottom: 10px;
+    }
+    .struk-item p {
+      margin: 5px 0;
+    }
+    .total {
+      font-weight: bold;
+      font-size: 18px;
+      text-align: right;
+      margin-top: 20px;
+    }
+    .thanks {
+      text-align: center;
+      margin-top: 40px;
+      color: green;
+      font-size: 18px;
+    }
+    .back-button {
+      display: block;
+      text-align: center;
+      margin-top: 30px;
+    }
+    .back-button a {
+      padding: 10px 20px;
+      background-color: #3498db;
+      color: white;
+      text-decoration: none;
+      border-radius: 5px;
+    }
+    .back-button a:hover {
+      background-color: #2980b9;
+    }
+  </style>
+</head>
+<body>
+  <div class="struk-container">
+    <h2>🧾 Struk Pemesanan</h2>
+
+    <div class="struk-item">
+      <p><strong>Produk:</strong> <span id="produk">-</span></p>
+      <p><strong>Warna:</strong> <span id="warna">-</span></p>
+      <p><strong>Ukuran:</strong> <span id="ukuran">-</span></p>
+      <p><strong>Jumlah:</strong> 1</p>
+      <p><strong>Harga Satuan:</strong> Rp. <span id="harga">-</span></p>
+    </div>
+
+    <div class="total">
+      Total: Rp. <span id="total">-</span>
+    </div>
+
+    <div class="thanks">
+      ✅ Terima kasih telah memesan!
+    </div>
+
+    <div class="back-button">
+      <a href="index.html">Kembali ke Beranda</a>
+    </div>
+  </div>
+
+  <script>
+    const produk = localStorage.getItem('produk');
+    const warna = localStorage.getItem('warna');
+    const ukuran = localStorage.getItem('ukuran');
+    const harga = localStorage.getItem('harga');
+
+    if (produk && warna && ukuran && harga) {
+      document.getElementById('produk').innerText = produk;
+      document.getElementById('warna').innerText = warna;
+      document.getElementById('ukuran').innerText = ukuran;
+      document.getElementById('harga').innerText = Number(harga).toLocaleString('id-ID');
+      document.getElementById('total').innerText = Number(harga).toLocaleString('id-ID');
+    } else {
+      document.querySelector('.struk-container').innerHTML = "<h2>❌ Data struk tidak tersedia.</h2>";
+    }
+
+    // Hapus data agar tidak tampil dua kali
+    localStorage.removeItem("produk");
+    localStorage.removeItem("warna");
+    localStorage.removeItem("ukuran");
+    localStorage.removeItem("harga");
+  </script>
+</body>
+</html>

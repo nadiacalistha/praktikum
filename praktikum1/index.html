@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <title>Kemeja wispie</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 40px;
+      background-color: #f9f9f9;
+    }
+    .container {
+      max-width: 900px;
+      margin: auto;
+      background-color: bisque;
+      padding: 30px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      display: flex;
+      gap: 40px;
+      align-items: flex-start;
+    }
+
+    .left {
+      flex-shrink: 0;
+      max-width: 350px;
+    }
+    .product-image {
+      width: 100%;
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    .thumbnails {
+      margin-top: 15px;
+      display: flex;
+      gap: 10px;
+      justify-content: center;
+    }
+    .thumbnail {
+      width: 60px;
+      height: 60px;
+      border: 2px solid transparent;
+      border-radius: 5px;
+      cursor: pointer;
+      object-fit: cover;
+      transition: border-color 0.3s;
+      user-select: none;
+    }
+    .thumbnail.selected {
+      border-color: pink;
+    }
+
+    .right {
+      flex: 1;
+    }
+
+    .size-button {
+      padding: 10px 15px;
+      margin: 5px;
+      border: 1px solid #333;
+      background-color: #eee;
+      cursor: pointer;
+      transition: 0.3s;
+      user-select: none;
+    }
+    .size-button:hover {
+      background-color: #ddd;
+      box-shadow: 0 0 5px #555;
+    }
+    .size-button.selected {
+      background-color: pink !important;
+      color: white;
+    }
+
+    button.order {
+      margin-top: 20px;
+      padding: 10px 25px;
+      background-color: #2ecc71;
+      color: white;
+      border: none;
+      font-size: 16px;
+      cursor: pointer;
+      user-select: none;
+      transition: background-color 0.3s;
+    }
+    button.order:hover {
+      background-color: #27ae60;
+    }
+
+    /* Responsive untuk layar kecil */
+    @media(max-width: 700px) {
+      .container {
+        flex-direction: column;
+        align-items: center;
+      }
+      .left, .right {
+        max-width: 100%;
+        width: 100%;
+      }
+      .thumbnails {
+        justify-content: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="left">
+      <img id="mainImage" src="maroon.jpg" alt="kemeja wispie maroon" class="product-image" />
+    <div class="thumbnails">
+  <img src="maroon.jpg" alt="maroon" class="thumbnail selected" onclick="gantiWarna('maroon', this, 'maroon.jpg')" />
+  <img src="pink.jpg" alt="pink" class="thumbnail" onclick="gantiWarna('pink', this, 'pink.jpg')" />
+  <img src="denim.jpg" alt="denim" class="thumbnail" onclick="gantiWarna('denim', this, 'denim.jpg')" />
+  <img src="coklat.jpg" alt="coklat" class="thumbnail" onclick="gantiWarna('coklat', this, 'coklat.jpg')" />
+</div>
+
+    </div>
+
+    <div class="right">
+      <h2>Kemeja wispie</h2>
+      <p><strong>Rp. 50.000</strong></p>
+
+      <p><strong>Pilih Warna:</strong> <span id="selectedColor">maroon</span></p>
+
+      <p><strong>Pilih Ukuran:</strong></p>
+      <button class="size-button" onclick="pilihUkuran(this, 'M')">M</button>
+      <button class="size-button" onclick="pilihUkuran(this, 'L')">L</button>
+      <button class="size-button" onclick="pilihUkuran(this, 'XL')">XL</button>
+      <button class="size-button" onclick="pilihUkuran(this, 'XXL')">XXL</button>
+
+      <br /><br />
+      <button class="order" onclick="konfirmasiPesanan()">Confirm</button>
+    </div>
+  </div>
+
+  <script>
+    let selectedWarna = 'Hitam';
+    let selectedUkuran = null;
+
+    function gantiWarna(warna, elem, imageUrl) {
+      // Update gambar utama
+      document.getElementById('mainImage').src = imageUrl;
+      document.getElementById('mainImage').alt = `Kaos Warna ${warna}`;
+
+      // Update selected thumbnail border
+      document.querySelectorAll('.thumbnail').forEach(img => img.classList.remove('selected'));
+      elem.classList.add('selected');
+
+      // Update warna yang dipilih
+      selectedWarna = warna;
+      document.getElementById('selectedColor').textContent = warna;
+    }
+
+    function pilihUkuran(elem, ukuran) {
+      document.querySelectorAll('.size-button').forEach(el => el.classList.remove('selected'));
+      elem.classList.add('selected');
+      selectedUkuran = ukuran;
+    }
+
+    function konfirmasiPesanan() {
+      if (!selectedWarna || !selectedUkuran) {
+        alert("Silakan pilih warna dan ukuran terlebih dahulu!");
+        return;
+      }
+
+      localStorage.setItem("produk", "Kemeja wispie");
+      localStorage.setItem("warna", selectedWarna);
+      localStorage.setItem("ukuran", selectedUkuran);
+      localStorage.setItem("harga", 50000);
+
+      window.location.href = "struck.html";
+    }
+  </script>
+</body>
+</html>
