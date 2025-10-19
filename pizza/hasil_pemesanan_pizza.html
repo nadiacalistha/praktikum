@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Hasil Pemesanan Pizza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #fffaf0;
+      margin: 40px;
+    }
+    h2 {
+      text-align: center;
+      color: #ff6600;
+    }
+    .container {
+      background: white;
+      padding: 25px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      max-width: 600px;
+      margin: auto;
+    }
+    h3 {
+      color: #333;
+      border-bottom: 1px solid #ddd;
+      padding-bottom: 5px;
+    }
+    p {
+      margin: 5px 0;
+    }
+  </style>
+</head>
+<body>
+  <h2>THANK YOU</h2>
+  <div class="container" id="order-summary">
+    <!-- Data pesanan akan ditampilkan di sini -->
+  </div>
+
+  <script>
+    const data = JSON.parse(localStorage.getItem("pizzaOrder"));
+
+    if (data) {
+      document.getElementById("order-summary").innerHTML = `
+        <p>Thank you for ordering from <strong>Black Goose Bistro</strong>. We have received the following information about your order:</p>
+
+        <h3>Your Information</h3>
+        <p><strong>Name:</strong> ${data.name}</p>
+        <p><strong>Address:</strong> ${data.address}</p>
+        <p><strong>Telephone Number:</strong> ${data.phone}</p>
+        <p><strong>Email:</strong> ${data.email}</p>
+        <p><strong>Delivery Instructions:</strong> ${data.instructions || 'None'}</p>
+
+        <h3>Your Pizza</h3>
+        <p><strong>Crust:</strong> ${data.crust}</p>
+        <p><strong>Toppings:</strong> ${data.toppings.length > 0 ? data.toppings.join(', ') : 'None'}</p>
+        <p><strong>Number:</strong> ${data.number}</p>
+
+        <p style="margin-top:15px;font-size:12px;">*This is for educational purposes only. No pizza will be delivered.*</p>
+      `;
+    } else {
+      document.getElementById("order-summary").innerHTML = "<p>No order data found. Please return to the form and submit your order.</p>";
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Form Pemesanan Pizza</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f7f7f7;
+      margin: 30px;
+    }
+    h2 {
+      color: #333;
+    }
+    form {
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      max-width: 500px;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 8px;
+      margin-top: 5px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .section {
+      margin-top: 20px;
+    }
+    .submit-btn {
+      margin-top: 20px;
+      background: #ff6600;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .submit-btn:hover {
+      background: #ff4500;
+    }
+  </style>
+</head>
+<body>
+  <h2>Black Goose Bistro | Pizza-on-Demand</h2>
+  <p>Our 12” wood-fired pizzas are available for delivery. Build your custom pizza and we’ll deliver it within an hour.</p>
+
+  <form id="pizza-form">
+    <h3>Your Information</h3>
+    <label for="name">Name:</label>
+    <input type="text" id="name" name="name" required>
+
+    <label for="address">Address:</label>
+    <input type="text" id="address" name="address" required>
+
+    <label for="phone">Telephone Number:</label>
+    <input type="tel" id="phone" name="phone" required>
+
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email" required>
+
+    <label for="instructions">Delivery Instructions:</label>
+    <textarea id="instructions" name="instructions" rows="4" placeholder="No more than 400 characters long"></textarea>
+
+    <div class="section">
+      <h3>Design Your Dream Pizza</h3>
+      <label>Crust:</label>
+      <input type="radio" name="crust" value="Classic White" checked> Classic White<br>
+      <input type="radio" name="crust" value="Multigrain"> Multigrain<br>
+      <input type="radio" name="crust" value="Cheese-Stuffed Crust"> Cheese-Stuffed Crust<br>
+      <input type="radio" name="crust" value="Gluten-Free Crust"> Gluten-Free Crust<br>
+
+      <label>Toppings (choose as many as you want):</label>
+      <input type="checkbox" name="toppings" value="Red Sauce"> Red Sauce<br>
+      <input type="checkbox" name="toppings" value="White Sauce"> White Sauce<br>
+      <input type="checkbox" name="toppings" value="Mozzarella Cheese"> Mozzarella Cheese<br>
+      <input type="checkbox" name="toppings" value="Pepperoni"> Pepperoni<br>
+      <input type="checkbox" name="toppings" value="Mushrooms"> Mushrooms<br>
+      <input type="checkbox" name="toppings" value="Anchovies"> Anchovies<br>
+
+      <label for="number">Number (how many pizzas):</label>
+      <select id="number" name="number">
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+      </select>
+    </div>
+
+    <button type="submit" class="submit-btn">Bring me a pizza!</button>
+  </form>
+
+  <script>
+    document.getElementById("pizza-form").addEventListener("submit", function (e) {
+      e.preventDefault(); // Cegah pengiriman form default
+
+      const name = document.getElementById("name").value;
+      const address = document.getElementById("address").value;
+      const phone = document.getElementById("phone").value;
+      const email = document.getElementById("email").value;
+      const instructions = document.getElementById("instructions").value;
+      const crust = document.querySelector('input[name="crust"]:checked').value;
+
+      const toppings = [];
+      document.querySelectorAll('input[name="toppings"]:checked').forEach(el => toppings.push(el.value));
+
+      const number = document.getElementById("number").value;
+
+      // Simpan ke localStorage
+      const pizzaOrder = {
+        name,
+        address,
+        phone,
+        email,
+        instructions,
+        crust,
+        toppings,
+        number
+      };
+
+      localStorage.setItem("pizzaOrder", JSON.stringify(pizzaOrder));
+
+      // Redirect ke halaman hasil
+      window.location.href = "hasil_pemesanan_pizza.html";
+    });
+  </script>
+</body>
+</html>
